@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Beer Finder</h1>
+    <div id="react-map-root"></div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    {#{% javascripts 'build/js/app.js' %}#}
+    {#<script src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+{% endblock %}
