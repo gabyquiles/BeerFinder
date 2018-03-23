@@ -11,6 +11,7 @@ Feature: Add Brewery
     When I am on "/admin/app/brewery/create"
     Then the "Name" field should contain ""
     And the "Phone" field should contain ""
+    And the "Phone" field should contain the attribute "type" with value="tel"
     And the "Webpage" field should contain ""
     And the "Street address1" field should contain ""
     And the "Street address2" field should contain ""
@@ -26,8 +27,19 @@ Feature: Add Brewery
     And I fill in "Street address1" with "street1"
     And I fill in "Street address2" with ""
     And I fill in "City" with "Saint Petersburg"
-    And I fill in "State" with "FL"
+    And I select "FL" from "State"
     And I fill in "Postal code" with "33701"
     When I press "Create and return to list"
     Then I am on "/admin/app/brewery/list"
     And I should see "Brewery 1"
+
+  Scenario: List Areas Of Responsibility
+    When I am on "/admin/app/brewery/list"
+    Then page loads successfully
+    And the columns schema of the "table" table should match:
+      | columns |
+      |         |
+      | Name    |
+      | Phone   |
+      | City    |
+      | State   |

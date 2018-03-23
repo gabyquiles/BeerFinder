@@ -1,6 +1,6 @@
 <?php
 
-use Behat\Behat\Context\Context;
+use Behat\MinkExtension\Context\MinkContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @see http://behat.org/en/latest/quick_start.html
  */
-class FeatureContext implements Context
+class FeatureContext extends MinkContext
 {
     /**
      * @var KernelInterface
@@ -44,5 +44,29 @@ class FeatureContext implements Context
         if ($this->response === null) {
             throw new \RuntimeException('No response received');
         }
+    }
+
+    /**
+     * @Given /^the "([^"]*)" field should contain the attribute "([^"]*)" with value="([^"]*)"$/
+     */
+    public function theFieldShouldContainTheAttributeWithValue($field, $attribute, $expectedValue)
+    {
+        $field = $this->fixStepArgument($field);
+        $node = $this->assertSession()->fieldExists($field);
+        if (!$node->hasAttribute($attribute)) {
+            throw new RuntimeException(sprintf('Attribute "%s" not found on field "%s"', $attribute, $field));
+        }
+        $actualValue = $node->getAttribute($attribute);
+        if ($actualValue != $expectedValue) {
+            throw new RuntimeException(sprintf('Attribute "%s" was expected to have value "%s", but have "%s"', $attribute, $expectedValue, $actualValue));
+        }
+    }
+
+    /**
+     * @Then page loads successfully
+     */
+    public function pageLoadsSuccessfully()
+    {
+        $this->assertResponseStatus(200);
     }
 }

@@ -25,7 +25,7 @@ class AddressType extends AbstractType
             'required' => false
         ));
         $builder->add('city');
-        $builder->add('state');
+        $builder->add('state', StateType::class);
         $builder->add('postalCode');
     }
 

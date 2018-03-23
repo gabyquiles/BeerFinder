@@ -4,8 +4,7 @@ default:
             contexts:
                 - FeatureContext:
                     kernel: '@kernel'
-                - Behat\MinkExtension\Context\MinkContext
-
+                - behatch:context:table
     extensions:
         Behat\Symfony2Extension:
             kernel:
