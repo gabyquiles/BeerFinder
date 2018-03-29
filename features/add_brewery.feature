@@ -3,11 +3,18 @@ Feature: Add Brewery
   As a logged administrator
   I should be able to access the Add Brewery page and submit form
 
+  Scenario: Add brewery page requires login
+    When I am on "/admin/app/brewery/create"
+    Then page loads successfully
+    And I should be on "/login"
+
   Scenario: Add brewery loads successfully
+    Given I am logged in as "admin@example.com"
     When I am on "/admin/app/brewery/create"
     Then the response status code should be 200
 
   Scenario: Create brewery has correct fields
+    Given I am logged in as "admin@example.com"
     When I am on "/admin/app/brewery/create"
     Then the "Name" field should contain ""
     And the "Phone" field should contain ""
@@ -20,6 +27,7 @@ Feature: Add Brewery
     And the "Postal code" field should contain ""
 
   Scenario: Create a brewery
+    Given I am logged in as "admin@example.com"
     Given I am on "/admin/app/brewery/create"
     And I fill in "Name" with "Brewery 1"
     And I fill in "Phone" with "1234567890"
@@ -34,6 +42,7 @@ Feature: Add Brewery
     And I should see "Brewery 1"
 
   Scenario: List Areas Of Responsibility
+    Given I am logged in as "admin@example.com"
     When I am on "/admin/app/brewery/list"
     Then page loads successfully
     And the columns schema of the "table" table should match:

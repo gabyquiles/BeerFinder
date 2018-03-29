@@ -35,7 +35,7 @@ class Brewery
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=14, nullable=true)
      */
     private $phone;
 
@@ -52,6 +52,14 @@ class Brewery
      * @ORM\Embedded(class="App\Entity\Address")
      */
     private $address;
+
+    /**
+     * Brewery constructor.
+     */
+    public function __construct()
+    {
+        $this->address = new Address();
+    }
 
     /**
      * @return int

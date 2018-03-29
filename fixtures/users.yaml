@@ -1,0 +1,8 @@
+App\Entity\User:
+  admin_user:
+    first_name: <firstName()>
+    last_name: <lastName()>
+    email: admin@example.com
+    password: P@ssw0rd
+    roles:
+      - ROLE_SUPER_ADMIN

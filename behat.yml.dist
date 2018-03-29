@@ -5,6 +5,9 @@ default:
                 - FeatureContext:
                     kernel: '@kernel'
                 - behatch:context:table
+                - DatabaseContext:
+                    entityManager: '@doctrine.orm.entity_manager'
+                    loader: '@fidry_alice_data_fixtures.loader.doctrine'
     extensions:
         Behat\Symfony2Extension:
             kernel:

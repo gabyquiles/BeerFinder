@@ -1,0 +1,8 @@
+App\Entity\Brewery:
+  breweries_{1..5}:
+    name: <username()>
+    phone: 727-701-0000
+    address.street_address1: 123 45th Street N
+    address.city: Saint Petersburg
+    address.state: FL
+    address.postalcode: 123

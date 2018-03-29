@@ -1,9 +1,15 @@
 <?php
 
+use App\Entity\User;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Driver\BrowserKitDriver;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkContext;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -68,5 +74,54 @@ class FeatureContext extends MinkContext
     public function pageLoadsSuccessfully()
     {
         $this->assertResponseStatus(200);
+    }
+
+    /**
+     * @Given /^I am logged in as "([^"]*)"$/
+     * @throws UnsupportedDriverActionException
+     */
+    public function iAmLoggedInAs($username)
+    {
+        $driver = $this->getSession()->getDriver();
+        if (!$driver instanceof BrowserKitDriver) {
+            throw new UnsupportedDriverActionException('This step is only supported by the BrowserKitDriver', $driver);
+        }
+
+        $client = $driver->getClient();
+        $client->getCookieJar()->set(new Cookie(session_name(), true));
+
+        $session = $client->getContainer()->get('session');
+
+        $user = $this->kernel->getContainer()->get('fos_user.user_manager')->findUserByUsername($username);
+        $providerKey = $this->kernel->getContainer()->getParameter('fos_user.firewall_name');
+
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+        $session->set('_security_' . $providerKey, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
+    }
+
+    /**
+     * @Given /^the following user are defined:$/
+     */
+    public function theFollowingUserAreDefined(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+            $userManager = $this->kernel->getContainer()->get('fos_user.user_manager');
+            /** @var User $user */
+            $user = $userManager->createUser();
+            $user->setFirstName("first name");
+            $user->setLastName("last name");
+            $user->setEmail($row['email']);
+            $user->setUsername($row['email']);
+            $user->setPlainPassword("P@ssw0rd");
+            $user->addRole($row['role']);
+            $user->setEnabled(true);
+
+            $userManager->updateUser($user);
+        }
     }
 }
