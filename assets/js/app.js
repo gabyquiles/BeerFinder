@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Map from './components/Map';
+import Map from './components/MapContainer';
 
 const map = document.getElementById('react-map-root');
 if (map) {
