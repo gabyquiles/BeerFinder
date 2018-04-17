@@ -8,6 +8,7 @@
 
 namespace App\Entity;
 
+use App\Doctrine\Type\Point;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +53,11 @@ class Brewery
      * @ORM\Embedded(class="App\Entity\Address")
      */
     private $address;
+
+    /**
+     * @ORM\Column(type="point")
+     */
+    private $coordinates;
 
     /**
      * Brewery constructor.
@@ -131,5 +137,21 @@ class Brewery
     public function setAddress(Address $address): void
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return Point
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    /**
+     * @param Point $coordinates
+     */
+    public function setCoordinates(Point $coordinates): void
+    {
+        $this->coordinates = $coordinates;
     }
 }

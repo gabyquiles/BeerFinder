@@ -1,8 +1,27 @@
 App\Entity\Brewery:
-  breweries_{1..5}:
-    name: <username()>
-    phone: 727-701-0000
-    address.street_address1: 123 45th Street N
+  ratc:
+    name: Right Around the Corner
+    phone: (813) 360-0766
+    address.street_address1: 2244 Central Ave
     address.city: Saint Petersburg
     address.state: FL
-    address.postalcode: 123
+    address.postalcode: 33712
+    coordinates: <identity(new App\Doctrine\Type\Point(27.770884, -82.663962))>
+
+  flying_boat:
+    name: Flying Boat Brewing Company
+    phone: (727) 800-2999
+    address.street_address1: 1776 11th Ave N
+    address.city: Saint Petersburg
+    address.state: FL
+    address.postalcode: 33713
+    coordinates: <identity(new App\Doctrine\Type\Point(27.782754, -82.657698))>
+
+  ocean_lab:
+    name: Ocean Lab Brewing Co.
+    phone: (787) 759-2642
+    address.street_address1: Road PR187 KM 2.6
+    address.city: Carolina
+    address.state: PR
+    address.postalcode: 00979
+    coordinates: <identity(new App\Doctrine\Type\Point(18.447201, -65.999766))>
