@@ -9,9 +9,36 @@
 namespace App\Repository;
 
 
+use App\Doctrine\Type\Point;
 use Doctrine\ORM\EntityRepository;
 
 class BreweryRepository extends EntityRepository
 {
+    public function demo()
+    {
+        $qb = $this->createQueryBuilder('brewery');
+//        $qb->where('brewery.coordinates = POINT(:lat, :lon)');
+        $qb->addSelect('DISTANCE(brewery.coordinates, POINT_STR(:point))');
+//        $point = new Point(10, 20.5);
+        $point = new Point(27.7676, 82.6403);
+        $qb->setParameter(':point', $point->__toString());
+//        $qb->setParameter(':lat', 27.7676);
+//        $qb->setParameter(':lon', 82.6403);
+        return $qb->getQuery()->getResult();
+    }
 
+    /**
+     * @param Point $center Current location
+     * @param int $radius Search radius in miles
+     * @return mixed
+     */
+    public function getBreweriesWithinRadius(Point $center, $radius = 5)
+    {
+        $qb = $this->createQueryBuilder('brewery');
+        $qb->where('DISTANCE(brewery.coordinates, POINT_STR(:center)) <= :radius');
+        $qb->setParameter(':center', $center->__toString());
+        $radiusInDegrees = $radius / 69;
+        $qb->setParameter(':radius', $radiusInDegrees);
+        return $qb->getQuery()->getResult();
+    }
 }
