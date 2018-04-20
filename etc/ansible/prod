@@ -1,0 +1,9 @@
+[prod-webservers]
+ps599745.dreamhostps.com ansible_user=gabyusr
+
+[prod-dbservers]
+ps599745.dreamhostps.com ansible_user=gabyusr
+
+[prod:children]
+prod-webservers
+prod-dbservers
