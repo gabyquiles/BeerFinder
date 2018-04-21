@@ -1,4 +1,4 @@
 ---
 - name: Run doctrine migrations
   shell: chdir={{ansistrano_release_path.stdout}}
-    source {{ansistrano_shared_path}}/.env && {{symfony_php_path}} /home/gabyusr/looking4.beer/repo/{{symfony_console_path}} doctrine:migrations:migrate --no-interaction
+    source {{ansistrano_shared_path}}/.env && {{symfony_php_path}} {{symfony_console_path}} doctrine:migrations:migrate --no-interaction
