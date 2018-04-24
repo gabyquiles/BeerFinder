@@ -3,8 +3,8 @@
   shell: |
     chdir={{ansistrano_release_path.stdout}}
     echo "SetEnv APP_ENV prod" > {{ansistrano_shared_path}}/htaccess
-    echo "SetEnv APP_SECRET 5a9e4a387ef935d643d8d37441315167" >> {{ansistrano_shared_path}}/htaccess
-    echo "SetEnv DATABASE_URL mysql://looking4beer_dbu:9ymXVxybTjBHgRZC3faA@data.looking4.beer:3306/data_looking4beer" >> {{ansistrano_shared_path}}/htaccess
-    echo "SetEnv MAILER_USER gaby.quiles@gmail.com" >> {{ansistrano_shared_path}}/htaccess
-    cat {{ ansistrano_deploy_to }}/public/.htaccess >> {{ansistrano_shared_path}}/htaccess
-    cp {{ansistrano_shared_path}}/htaccess {{ ansistrano_deploy_to }}/public/.htaccess
+    echo "SetEnv APP_SECRET {{ symfony_app_secret }}" >> {{ansistrano_shared_path}}/htaccess
+    echo "SetEnv DATABASE_URL {{ symfony_database_url }}" >> {{ansistrano_shared_path}}/htaccess
+    echo "SetEnv MAILER_USER {{ symfony_mailer }}" >> {{ansistrano_shared_path}}/htaccess
+    cat {{ ansistrano_deploy_to }}/current/public/.htaccess >> {{ansistrano_shared_path}}/htaccess
+    cp {{ansistrano_shared_path}}/htaccess {{ ansistrano_deploy_to }}/current/public/.htaccess
