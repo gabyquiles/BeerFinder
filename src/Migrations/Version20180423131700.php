@@ -1,13 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: gabrielquiles-perez
- * Date: 4/23/18
- * Time: 1:17 PM
- */
+<?php declare(strict_types=1);
 
-namespace App\Migrations;
-
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
