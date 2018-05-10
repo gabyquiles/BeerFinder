@@ -1,0 +1,9 @@
+[prod-webservers]
+looking4.beer ansible_user=gabyusr
+
+[prod-dbservers]
+looking4.beer ansible_user=gabyusr
+
+[prod:children]
+prod-webservers
+prod-dbservers

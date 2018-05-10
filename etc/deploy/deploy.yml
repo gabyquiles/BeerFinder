@@ -1,0 +1,34 @@
+---
+-
+  name: Deploy Application
+  hosts: all
+  gather_facts: false
+
+  vars:
+    ansistrano_deploy_from: "{{ playbook_dir }}/../../"
+    ansistrano_deploy_to: "{{ deploy_to }}"
+    ansistrano_keep_releases: 3
+    ansistrano_deploy_via: "git"
+    ansistrano_git_repo: "{{ deploy_from }}"
+    ansistrano_shared_paths:
+      - var/logs
+      - var/sessions
+    symfony_console_path: 'bin/console'
+    symfony_run_composer: true
+    symfony_composer_path: "{{ ansistrano_deploy_to }}/composer.phar"
+    symfony_composer_options: '--no-dev --optimize-autoloader --no-interaction'
+    symfony_composer_self_update: true # Always attempt a composer self-update
+    symfony_run_assetic_dump: false
+    symfony_run_doctrine_migrations: false
+    ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/config/before-symlink-shared-tasks.yml"
+    ansistrano_before_cleanup_tasks_file: "{{ playbook_dir }}/config/create_htaccess.yml"
+  roles:
+      - { role: cbrunnkvist.ansistrano-symfony-deploy }
+  environment:
+      APP_ENV: "{{ sf_env }}"
+      BASE_URL: "{{ sf_base_url }}"
+      HOST: "{{ sf_host }}"
+      SCHEME: "{{ sf_scheme }}"
+      TMPDIR: "{{ temp_dir }}"
+      TMP: "{{ temp_dir }}"
+      PATH: "/usr/local/php72/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

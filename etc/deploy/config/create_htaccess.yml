@@ -1,0 +1,10 @@
+---
+- name: Create .htaccess file with environment variables
+  shell: |
+    chdir={{ansistrano_release_path.stdout}}
+    echo "SetEnv APP_ENV prod" > {{ansistrano_shared_path}}/htaccess
+    echo "SetEnv APP_SECRET {{ symfony_app_secret }}" >> {{ansistrano_shared_path}}/htaccess
+    echo "SetEnv DATABASE_URL {{ symfony_database_url }}" >> {{ansistrano_shared_path}}/htaccess
+    echo "SetEnv MAILER_USER {{ symfony_mailer }}" >> {{ansistrano_shared_path}}/htaccess
+    cat {{ ansistrano_deploy_to }}/current/public/.htaccess >> {{ansistrano_shared_path}}/htaccess
+    cp {{ansistrano_shared_path}}/htaccess {{ ansistrano_deploy_to }}/current/public/.htaccess
