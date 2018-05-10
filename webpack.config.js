@@ -12,14 +12,15 @@ Encore
 
     // uncomment to define the assets of the project
     .addEntry('js/index', './assets/js/index.js')
-    // .addStyleEntry('css/app', './assets/css/app.scss')
 
     // uncomment if you use Sass/SCSS files
     // .enableSassLoader()
 
-    // uncomment for legacy applications that require $/jQuery as a global variable
-    // .autoProvidejQuery()
     .enableReactPreset()
+    .configureBabel(function (babelConfig) {
+        // add additional presets
+        babelConfig.presets.push('stage-1');
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();
