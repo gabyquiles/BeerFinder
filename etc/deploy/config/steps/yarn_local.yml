@@ -1,0 +1,14 @@
+---
+- name: '[local] npm dependencies & yarn tasks'
+  local_action: shell cd {{ playbook_dir }}/../.. && yarn install && yarn build
+  register: yarn_local_task
+  ignore_errors: True
+
+- fail: msg="yarn install or yarn build failed locally"
+  when: yarn_local_task|failed
+
+- name: Upload public compiled files
+  synchronize:
+    src: "{{ playbook_dir }}/../../public/build"
+    dest: "{{ ansistrano_release_path.stdout }}/public"
+  when: yarn_local_task|succeeded
