@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BreweryListItem from "./BreweryListItem";
 
 const BreweryList = ({breweries}) => {
-    console.log(breweries);
     return (
         <div className="brewery-list">
             <h1>Breweries in your area</h1>
             <ul>
                 {breweries.map((brewery) => (
-                    <li>{brewery.name}</li>
+                    <li key={brewery.id}><BreweryListItem brewery={brewery}/></li>
                 ))}
             </ul>
         </div>

@@ -110,7 +110,6 @@ const breweries = [{
 
 class App extends Component {
     render() {
-        console.log(breweries);
         return (
             <BreweryList breweries={breweries}/>
         );
