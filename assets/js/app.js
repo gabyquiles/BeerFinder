@@ -16,7 +16,7 @@ class App extends Component {
 
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
-            this.getNearbyBreweries(position.coords.latitude, position.coords.longitude, 500);
+            this.getNearbyBreweries(position.coords.latitude, position.coords.longitude, 5);
         });
     }
 
