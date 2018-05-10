@@ -2,11 +2,11 @@
 
 {% block body %}
     <h1>Beer Finder</h1>
-    <div id="react-map-root"></div>
+    <div id="root"></div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script src="{{ asset('build/js/index.js') }}"></script>
     {#{% javascripts 'build/js/app.js' %}#}
     {#<script src="{{ asset_url }}"></script>#}
     {#{% endjavascripts %}#}
