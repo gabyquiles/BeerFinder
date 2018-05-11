@@ -9,12 +9,13 @@
 namespace App\Entity;
 
 use App\Doctrine\Type\Point;
+use App\Model\BreweryInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BreweryRepository")
  */
-class Brewery
+class Brewery implements BreweryInterface
 {
 
     /**
@@ -58,6 +59,11 @@ class Brewery
      * @ORM\Column(type="point")
      */
     private $coordinates;
+
+    /**
+     * @var float
+     */
+    private $distance;
 
     /**
      * Brewery constructor.
@@ -153,5 +159,21 @@ class Brewery
     public function setCoordinates(Point $coordinates): void
     {
         $this->coordinates = $coordinates;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDistance(): ?float
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param float $distance
+     */
+    public function setDistance(float $distance): void
+    {
+        $this->distance = $distance;
     }
 }

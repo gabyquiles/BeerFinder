@@ -34,8 +34,11 @@ class BreweryRepository extends EntityRepository
      */
     public function getBreweriesWithinRadius(Point $center, $radius = 5)
     {
-        $qb = $this->createQueryBuilder('brewery');
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('brewery, DISTANCE(brewery.coordinates, POINT_STR(:center)) AS distance');
+        $qb->from('App:Brewery', 'brewery');
         $qb->where('DISTANCE(brewery.coordinates, POINT_STR(:center)) <= :radius');
+        $qb->orderBy('distance');
         $qb->setParameter(':center', $center->__toString());
         $radiusInDegrees = $radius / 69;
         $qb->setParameter(':radius', $radiusInDegrees);

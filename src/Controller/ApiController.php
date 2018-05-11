@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Doctrine\Type\Point;
+use App\Model\DistancedBrewery;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,13 @@ class ApiController extends FOSRestController
         $repository = $this->getDoctrine()->getRepository('App:Brewery');
 
         $breweries = $repository->getBreweriesWithinRadius($centerOfSearch, $radiusOfSearch);
-        
+
+        $breweries = array_map(function ($result) {
+            $distance = array_pop($result);
+            $brewery = array_pop($result);
+            return new DistancedBrewery($brewery, $distance);
+        }, $breweries);
+
         $view = $this->view($breweries, 200);
         return $this->handleView($view);
     }
