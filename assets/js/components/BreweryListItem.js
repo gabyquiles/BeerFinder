@@ -7,6 +7,7 @@ const BreweryListItem = ({brewery}) => {
         <div className="brewery-list-item">
             <h4>{brewery.name}</h4>
             <Address address={brewery.address}/>
+            <p>Distance: {Number(Math.round(brewery.distance + 'e2') + 'e-2')} mi</p>
         </div>
     )
 };

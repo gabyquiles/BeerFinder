@@ -12,6 +12,11 @@ namespace App\Repository;
 use App\Doctrine\Type\Point;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class BreweryRepository
+ * All distance in and out should be in MILES
+ * @package App\Repository
+ */
 class BreweryRepository extends EntityRepository
 {
     public function demo()
@@ -35,7 +40,7 @@ class BreweryRepository extends EntityRepository
     public function getBreweriesWithinRadius(Point $center, $radius = 5)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('brewery, DISTANCE(brewery.coordinates, POINT_STR(:center)) AS distance');
+        $qb->select('brewery, DISTANCE(brewery.coordinates, POINT_STR(:center)) * 69 AS distance');
         $qb->from('App:Brewery', 'brewery');
         $qb->where('DISTANCE(brewery.coordinates, POINT_STR(:center)) <= :radius');
         $qb->orderBy('distance');
