@@ -17,6 +17,7 @@ class StateType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
+//        TODO: Extract PR as its own country
         $resolver->setDefaults(array(
             'placeholder' => '-- Select One --',
             'choices' => array(
