@@ -176,4 +176,9 @@ class Brewery implements BreweryInterface
     {
         $this->distance = $distance;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
