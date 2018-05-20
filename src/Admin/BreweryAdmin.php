@@ -10,6 +10,7 @@ namespace App\Admin;
 
 
 use App\Form\AddressType;
+use App\Form\CoordinatesType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -23,6 +24,7 @@ class BreweryAdmin extends AbstractAdmin
         $form->add('phone', TelType::class);
         $form->add('webpage');
         $form->add('address', AddressType::class);
+        $form->add('coordinates', CoordinatesType::class);
     }
 
     public function configureListFields(ListMapper $listMapper)

@@ -54,6 +54,6 @@ class PointType extends Type
     {
         if (!$value) return;
 
-        return pack('xxxxcLdd', '0', 1, $value->getLatitude(), $value->getLongitude());
+        return pack('xxxxcLdd', 1, 1, $value->getLatitude(), $value->getLongitude());
     }
 }
