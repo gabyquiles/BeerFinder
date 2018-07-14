@@ -1,23 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
 import BreweryListItem from "./BreweryListItem";
 
-const BreweryList = ({breweries}) => {
+const BreweryList = ({breweriesIds}) => {
     return (
         <div className="brewery-list">
             <h1>Breweries in your area</h1>
             <ul>
-                {breweries.map((brewery) => (
-                    <li key={brewery.id}><BreweryListItem brewery={brewery}/></li>
+                {breweriesIds.map((breweryId) => (
+                    <li key={breweryId}><BreweryListItem breweryId={breweryId}/></li>
                 ))}
             </ul>
         </div>
     )
 };
 
-BreweryList.propTypes = {
-    breweries: PropTypes.array.isRequired
-};
+function mapStateToProps({breweries}) {
+    return {
+        breweriesIds: Object.keys(breweries)
+    }
+}
 
-
-export default BreweryList;
+export default connect(mapStateToProps)(BreweryList);

@@ -1,34 +1,30 @@
-import React, {Component} from 'react';
-import * as Looking4BeerAPI from './Looking4BeerAPI';
-import BreweryList from './components/BreweryList';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import '../css/app.scss';
+import {handleGetBrowserLocation} from "./actions/location"
+import {handleGetBreweries} from './actions/breweries'
+import BreweryList from './components/BreweryList'
 
 class App extends Component {
-    state = {
-        "breweries": []
-    };
-
-    getNearbyBreweries = (lat, lon, radius) => {
-        Looking4BeerAPI.getNeardby(lat, lon, radius).then((breweries) => {
-            this.setState(() => ({"breweries": breweries}));
-        });
-    };
 
     componentDidMount() {
+        const {dispatch} = this.props
+        dispatch(handleGetBrowserLocation())
+
+        //TODO: This needs refactoring. It is too ugly
         navigator.geolocation.getCurrentPosition((position) => {
-            // const lat = 27.7676;
-            // const lon = 82.6403;
-            //
-            // this.getNearbyBreweries(lat, lon, 5);
-            this.getNearbyBreweries(position.coords.latitude, position.coords.longitude, 5);
-        });
+                const {latitude, longitude} = position.coords
+                dispatch(handleGetBreweries(latitude, longitude, 5))
+            }
+        )
     }
 
     render() {
         return (
-            <BreweryList breweries={this.state.breweries}/>
+            <BreweryList/>
         );
     }
 }
 
-export default App;
+
+export default connect()(App);

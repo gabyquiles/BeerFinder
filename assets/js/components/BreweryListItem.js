@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import Address from './Address';
 
@@ -13,7 +14,13 @@ const BreweryListItem = ({brewery}) => {
 };
 
 BreweryListItem.propTypes = {
-    brewery: PropTypes.object.isRequired
+    breweryId: PropTypes.string.isRequired
 };
 
-export default BreweryListItem;
+function mapStateToProps({breweries}, {breweryId}) {
+    return {
+        brewery: breweries[breweryId]
+    }
+}
+
+export default connect(mapStateToProps)(BreweryListItem);
