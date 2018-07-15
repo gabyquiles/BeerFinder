@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react'
 import {connect} from 'react-redux'
+import {handleChangeLocation} from "../actions/shared"
 
 class MapContainer extends Component {
     centerMoved = (mapProps, map) => {
-        console.log("MOVED")
+        const lat = map.center.lat()
+        const lng = map.center.lng()
+        this.props.dispatch(handleChangeLocation(lat, lng))
     }
 
     render() {
