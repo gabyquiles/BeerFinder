@@ -1,13 +1,11 @@
-{% extends "base.html.twig" %}
-
-{% block body %}
-    <h1>Beer Finder</h1>
-    <div id="root"></div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('build/js/index.js') }}"></script>
-    {#{% javascripts 'build/js/app.js' %}#}
-    {#<script src="{{ asset_url }}"></script>#}
-    {#{% endjavascripts %}#}
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Looking 4 Beer</title>
+</head>
+<body>
+<div id="root"></div>
+<script src="{{ asset('build/js/index.js') }}"></script>
+</body>
+</html>

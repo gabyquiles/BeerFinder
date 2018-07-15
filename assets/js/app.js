@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import '../css/app.scss';
+import {Header, Layout, MainSection, Sidebar} from "./styles/layout"
 import {handleGetBrowserLocation} from "./actions/location"
 import {handleGetBreweries} from './actions/breweries'
 import BreweryList from './components/BreweryList'
+import Map from "./components/MapContainer";
 
 class App extends Component {
 
@@ -21,7 +22,17 @@ class App extends Component {
 
     render() {
         return (
-            <BreweryList/>
+            <Layout>
+                <Header>
+                    <h1>Looking 4 Beer</h1>
+                </Header>
+                <Sidebar>
+                    <BreweryList/>
+                </Sidebar>
+                <MainSection>
+                    <Map/>
+                </MainSection>
+            </Layout>
         );
     }
 }

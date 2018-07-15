@@ -1,33 +1,46 @@
-import React, {Component} from 'react';
-import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
+import React, {Component} from 'react'
+import {GoogleApiWrapper, Map} from 'google-maps-react'
+import {connect} from 'react-redux'
 
-export class MapContainer extends Component {
+// import Map from './Map'
 
-    fetchPlaces(props) {
-        console.log("Aqui");
+
+class MapContainer extends Component {
+    centerMoved = (mapProps, map) => {
+        console.log("MOVED")
     }
 
     render() {
+        if (!this.props.loaded) {
+            return <div>Loading GAQ...</div>
+        }
+        const {coords} = this.props
+        console.log(coords)
         return (
-            <Map google={this.props.google} zoom={14}
-                 initialCenter={{
-                     lat: 27.7676,
-                     lng: -82.6403
-                 }}
-                 onReady={this.fetchPlaces}
-            >
-                <Marker
-                    title={'The marker`s title will appear as a tooltip.'}
-                    name={'SOMA'}
-                    position={{lat: 27.7676, lng: -82.6403}}/>
+            <Map google={this.props.google} zoom={14} initialCenter={{lat: 0, lng: 0}}
+                 center={coords}
+                 onDragend={this.centerMoved}>
             </Map>
-        );
+
+        )
     }
 }
 
+function mapStateToProps({location}) {
+    return {
+        radius: location.searchRadius,
+        coords: {
+            lat: location.coordinates ? location.coordinates.latitude : 0,
+            lng: location.coordinates ? location.coordinates.longitude : 0,
+        }
+    }
+}
+
+const ConnectedMapContainer = connect(mapStateToProps)(MapContainer)
+
 export default GoogleApiWrapper({
-    apiKey: ("AIzaSyCSiMStHlPOmkZNVzRzYC_c1-YXVexce_4")
-})(MapContainer)
+    apiKey: "AIzaSyAvjcWfrfm_Z_UvTRteqFLhY41KNSZRtrw"
+})(ConnectedMapContainer)
 
 // <Marker onClick={this.onMarkerClick}
 // name={'Current location'}/>
