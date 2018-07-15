@@ -34,10 +34,9 @@ class ApiController extends FOSRestController
         $breweries = $repository->getBreweriesWithinRadius($centerOfSearch, $radiusOfSearch);
 
         $result = array();
-        foreach ($breweries as $result) {
-
-            $distance = array_pop($result);
-            $brewery = array_pop($result);
+        foreach ($breweries as $breweryRecord) {
+            $distance = array_pop($breweryRecord);
+            $brewery = array_pop($breweryRecord);
             $result[$brewery->getId()] = new DistancedBrewery($brewery, $distance);
         }
 
