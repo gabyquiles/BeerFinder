@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {AddressLine} from "../styles/BreweryListStyling"
 
 const Address = ({address}) => {
     return (
         <div className="address">
-            <p>{address.streetAddress1}</p>
-            {address.streetAddress2 ? <p>{address.streetAddress2}</p> : ""}
-            <p>{address.city}, {address.state} {address.postalCode}</p>
+            <AddressLine>{address.streetAddress1}</AddressLine>
+            {address.streetAddress2 && <AddressLine>{address.streetAddress2}</AddressLine>}
+            <AddressLine>{address.city}, {address.state} {address.postalCode}</AddressLine>
         </div>
     )
 };

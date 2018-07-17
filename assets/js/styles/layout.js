@@ -15,7 +15,6 @@ export const Header = styled.header`
 `
 
 export const Sidebar = styled.aside`
-    background-color: red;
     grid-area: sidebar;
 `
 

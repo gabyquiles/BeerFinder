@@ -1,15 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
+import {BrewerySummary, BrewerySummaryName, DistanceLine, StyledAddress} from '../styles/BreweryListStyling'
 import Address from './Address';
 
 const BreweryListItem = ({brewery}) => {
     return (
-        <div className="brewery-list-item">
-            <h4>{brewery.name}</h4>
-            <Address address={brewery.address}/>
-            <p>Distance: {Number(Math.round(brewery.distance + 'e2') + 'e-2')} mi</p>
-        </div>
+        <BrewerySummary>
+            <BrewerySummaryName>{brewery.name}</BrewerySummaryName>
+            <StyledAddress>
+                <Address address={brewery.address}/>
+                <DistanceLine>Distance: {Number(Math.round(brewery.distance + 'e2') + 'e-2')} mi</DistanceLine>
+            </StyledAddress>
+        </BrewerySummary>
     )
 };
 
