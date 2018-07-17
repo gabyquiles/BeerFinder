@@ -6,6 +6,7 @@ export const BreweriesListSidebar = styled.div`
     flex-direction: column;
     background: #F5F5F5;
     height: 100%;
+    overflow: scroll;
 `
 
 export const BrewerySummary = styled.div`
